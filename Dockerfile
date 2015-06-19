@@ -1,3 +1,11 @@
-FROM divshot/superstatic
+FROM node:0.10
+ADD ./package.json /superstatic/package.json
+WORKDIR /superstatic
+RUN npm install
+ADD . /superstatic
 
-RUN git clone https://github.com/willrax/test-html.git /data
+VOLUME /data
+WORKDIR /data
+
+EXPOSE 80
+ENTRYPOINT ["/superstatic/bin/server","-p","80"]
